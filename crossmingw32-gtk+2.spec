@@ -1,4 +1,3 @@
-%define		realname	gtk+2
 Summary:	The Gimp Toolkit - Ming32 cross version
 Summary(cs):	Sada nástrojù pro Gimp
 Summary(de):	Der Gimp-Toolkit
@@ -9,18 +8,19 @@ Summary(it):	Il toolkit per Gimp
 Summary(pl):	Gimp Toolkit - wersja skro¶na dla Ming32
 Summary(pt_BR):	Kit de ferramentas Gimp
 Summary(tr):	Gimp ToolKit arayüz kitaplýðý
-Name:		crossmingw32-%{realname}
-Version:	2.4.3
-Release:	2
+Name:		crossmingw32-gtk+2
+Version:	2.4.13
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://www.gimp.org/~tml/gimp/win32/gtk+-dev-%{version}.zip
-# Source0-md5:	ffa28f376549a1a1636084845729023e
+# Source0-md5:	36542202e50d8f3a9551072ae72188bf
 URL:		http://www.gtk.org/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
-BuildRoot:	%{tmpdir}/%{realname}-%{version}-root-%(id -u -n)
+Requires:	crossmingw32-glib2 >= 2.4.7
+Requires:	crossmingw32-atk >= 1.6.0
+Requires:	crossmingw32-pango >= 1.4.1
+Requires:	crossmingw32-pango < 1.6.0
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
 
@@ -80,23 +80,25 @@ Baþlangýçta GIMP için yazýlmýþ X kitaplýklarý. Þu anda baþka
 programlarca da kullanýlmaktadýr.
 
 %prep
-install -d gtk
-cd gtk && rm * -rf ; unzip %{SOURCE0} && cd ..
-
-%build
+%setup -q -c
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{arch}/share
 
-install -d $RPM_BUILD_ROOT%{arch}
-cp gtk/* $RPM_BUILD_ROOT%{arch} -rf
+# omit man,share/aclocal,share/gtk-doc (they are system-wide)
+cp -rf bin include lib $RPM_BUILD_ROOT%{arch}
+cp -rf share/gtk-2.0 $RPM_BUILD_ROOT%{arch}/share
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}/include/*
-%{arch}/lib/*
-%{arch}/share/*
-%{arch}/man/*
+%{arch}/include/gtk-2.0
+%{arch}/lib/*.lib
+%{arch}/lib/*.dll.a
+%{arch}/lib/gtk-2.0
+%{arch}/lib/pkgconfig/*.pc
+# XXX: missing dir
+%{arch}/share/gtk-2.0
