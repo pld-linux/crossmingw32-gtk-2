@@ -16,6 +16,7 @@ Group:		Libraries
 Source0:	http://www.gimp.org/~tml/gimp/win32/gtk+-dev-%{version}.zip
 # Source0-md5:	36542202e50d8f3a9551072ae72188bf
 URL:		http://www.gtk.org/
+BuildRequires:	unzip
 Requires:	crossmingw32-glib2 >= 2.4.7
 Requires:	crossmingw32-atk >= 1.6.0
 Requires:	crossmingw32-pango >= 1.4.1
