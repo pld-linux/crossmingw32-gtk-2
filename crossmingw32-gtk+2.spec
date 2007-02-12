@@ -1,13 +1,13 @@
 Summary:	The Gimp Toolkit - Ming32 cross version
-Summary(cs):	Sada nástrojù pro Gimp
-Summary(de):	Der Gimp-Toolkit
-Summary(es):	Conjunto de herramientas Gimp
-Summary(fi):	Gimp-työkalukokoelma
-Summary(fr):	Le toolkit de Gimp
-Summary(it):	Il toolkit per Gimp
-Summary(pl):	Gimp Toolkit - wersja skro¶na dla Ming32
-Summary(pt_BR):	Kit de ferramentas Gimp
-Summary(tr):	Gimp ToolKit arayüz kitaplığı
+Summary(cs.UTF-8):   Sada nÃ¡strojÅ¯ pro Gimp
+Summary(de.UTF-8):   Der Gimp-Toolkit
+Summary(es.UTF-8):   Conjunto de herramientas Gimp
+Summary(fi.UTF-8):   Gimp-tyÃ¶kalukokoelma
+Summary(fr.UTF-8):   Le toolkit de Gimp
+Summary(it.UTF-8):   Il toolkit per Gimp
+Summary(pl.UTF-8):   Gimp Toolkit - wersja skroÅ›na dla Ming32
+Summary(pt_BR.UTF-8):   Kit de ferramentas Gimp
+Summary(tr.UTF-8):   Gimp ToolKit arayÃ¼z kitaplÄ±ÄŸÄ±
 Name:		crossmingw32-gtk+2
 Version:	2.4.13
 Release:	1
@@ -43,42 +43,42 @@ which provides a thin layer over Xlib to help automate things like
 dealing with different color depths, and GTK is a widget set for
 creating user interfaces.
 
-%description -l cs
-Knihovny X pùvodnì psané pro GIMP, které nyní pou¾ívá také øada jinıch
-programù.
+%description -l cs.UTF-8
+Knihovny X pÅ¯vodnÄ› psanÃ© pro GIMP, kterÃ© nynÃ­ pouÅ¾Ã­vÃ¡ takÃ© Å™ada jinÃ½ch
+programÅ¯.
 
-%description -l da
+%description -l da.UTF-8
 X biblioteker, oprindeligt udviklet til GIMP, men anvendes nu af flere
 forskellige programmer.
 
-%description -l de
-Die X-Libraries, die ursprünglich für GIMP geschrieben wurden und
-mittlerweile für eine ganze Reihe anderer Programme benutzt werden.
+%description -l de.UTF-8
+Die X-Libraries, die ursprÃ¼nglich fÃ¼r GIMP geschrieben wurden und
+mittlerweile fÃ¼r eine ganze Reihe anderer Programme benutzt werden.
 
-%description -l fr
+%description -l fr.UTF-8
 X-kirjastot, jotka alunperin kirjoitettiin GIMP:lle, mutta joita
-käytetään nyt myös useissa muissakin ohjelmissa.
+kÃ¤ytetÃ¤Ã¤n nyt myÃ¶s useissa muissakin ohjelmissa.
 
-%description -l it
+%description -l it.UTF-8
 Libreria X scritta per GIMP. Viene usata da diversi programmi.
 
-%description -l pl
-GTK+, która to biblioteka sta³a siê podstaw± programu Gimp, zawiera
-funkcje do tworzenia graficznego interfejsu u¿ytkownika pod X Window.
-By³a tworzona z za³o¿eniem ¿eby by³a ma³a, efektywna i wygodna. GTK+
-jest napisane w C z podej¶ciem zorientowanym bardzo obiektowo. GDK
-(czê¶æ GTK+) jest warstw± po¶redni± pomiêdzy Xlib i reszt± toolkitu
-zapewniaj±c± pracê niezale¿nie od g³êbi koloru (ilo¶ci bitów na
-piksel). GTK (druga czê¶æ GTK+) jest natomiast ju¿ zbiorem ró¿nego
-rodzaju kontrolek s³u¿±cych do tworzenia interfejsu u¿ytkownika.
+%description -l pl.UTF-8
+GTK+, ktÃ³ra to biblioteka staÅ‚a siÄ™ podstawÄ… programu Gimp, zawiera
+funkcje do tworzenia graficznego interfejsu uÅ¼ytkownika pod X Window.
+ByÅ‚a tworzona z zaÅ‚oÅ¼eniem Å¼eby byÅ‚a maÅ‚a, efektywna i wygodna. GTK+
+jest napisane w C z podejÅ›ciem zorientowanym bardzo obiektowo. GDK
+(czÄ™Å›Ä‡ GTK+) jest warstwÄ… poÅ›redniÄ… pomiÄ™dzy Xlib i resztÄ… toolkitu
+zapewniajÄ…cÄ… pracÄ™ niezaleÅ¼nie od gÅ‚Ä™bi koloru (iloÅ›ci bitÃ³w na
+piksel). GTK (druga czÄ™Å›Ä‡ GTK+) jest natomiast juÅ¼ zbiorem rÃ³Å¼nego
+rodzaju kontrolek sÅ‚uÅ¼Ä…cych do tworzenia interfejsu uÅ¼ytkownika.
 
-%description -l pt_BR
-Bibliotecas X originalmente escritas para o GIMP, que agora estão
-sendo também usadas por vários outros programas.
+%description -l pt_BR.UTF-8
+Bibliotecas X originalmente escritas para o GIMP, que agora estÃ£o
+sendo tambÃ©m usadas por vÃ¡rios outros programas.
 
-%description -l tr
-Başlangıçta GIMP için yazılmış X kitaplıkları. Şu anda başka
-programlarca da kullanılmaktadır.
+%description -l tr.UTF-8
+BaÅŸlangÄ±Ã§ta GIMP iÃ§in yazÄ±lmÄ±ÅŸ X kitaplÄ±klarÄ±. Åu anda baÅŸka
+programlarca da kullanÄ±lmaktadÄ±r.
 
 %prep
 %setup -q -c
