@@ -8,20 +8,27 @@ Summary(it.UTF-8):	Il toolkit per Gimp
 Summary(pl.UTF-8):	Gimp Toolkit - wersja skrośna dla Ming32
 Summary(pt_BR.UTF-8):	Kit de ferramentas Gimp
 Summary(tr.UTF-8):	Gimp ToolKit arayüz kitaplığı
-Name:		crossmingw32-gtk+2
-Version:	2.4.13
+%define		_realname   gtk+2
+Name:		crossmingw32-%{_realname}
+Version:	2.10.9
 Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://www.gimp.org/~tml/gimp/win32/gtk+-dev-%{version}.zip
-# Source0-md5:	36542202e50d8f3a9551072ae72188bf
+Source0:	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.10/gtk+-%{version}.tar.bz2
+# Source0-md5:	20d763198efb38263b22dee347f69da6
+Patch0:		%{name}-static.patch
+Patch1:		%{name}-build.patch
 URL:		http://www.gtk.org/
+BuildRequires:	crossmingw32-libjpeg
+BuildRequires:	crossmingw32-libpng
+BuildRequires:	crossmingw32-libtiff
 BuildRequires:	unzip
 Requires:	crossmingw32-glib2 >= 2.4.7
 Requires:	crossmingw32-atk >= 1.6.0
 Requires:	crossmingw32-pango >= 1.4.1
-Requires:	crossmingw32-pango < 1.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		abivers	2.10.0
 
 %define		no_install_post_strip	1
 
@@ -31,8 +38,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		gccarch			%{_prefix}/lib/gcc-lib/%{target}
 %define		gcclib			%{_prefix}/lib/gcc-lib/%{target}/%{version}
 
+%define		_sysprefix		/usr
+%define		_prefix			%{_sysprefix}/%{target}
+%define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
+
+%define         filterout_ld            (-Wl,)?-as-needed.*
 
 %description
 GTK+, which stands for the Gimp ToolKit, is a library for creating
@@ -81,25 +93,67 @@ Başlangıçta GIMP için yazılmış X kitaplıkları. Şu anda başka
 programlarca da kullanılmaktadır.
 
 %prep
-%setup -q -c
+%setup -q -n gtk+-%{version}
+#%patch0 -p1
+#%patch1 -p1
+
+%build
+export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
+%{__libtoolize}
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
+%configure \
+	--target=%{target} \
+	--host=%{target} \
+	--disable-gtk-doc \
+	--disable-man \
+	--disable-modules \
+	--disable-xkb \
+	--with-gdk-target=win32 \
+	--without-x \
+	--without-xinput \
+	--enable-static
+
+#%{__sed} -i -e 's/^deplibs_check_method=.*/deplibs_check_method="pass_all"/' libtool
+
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{arch}/share
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/gtk-2.0 \
+	$RPM_BUILD_ROOT%{_libdir}/gtk-2.0/%{abivers}/filesystems
 
-# omit man,share/aclocal,share/gtk-doc (they are system-wide)
-cp -rf bin include lib $RPM_BUILD_ROOT%{arch}
-cp -rf share/gtk-2.0 $RPM_BUILD_ROOT%{arch}/share
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	m4datadir=%{_aclocaldir} \
+	pkgconfigdir=%{_pkgconfigdir}
 
+touch $RPM_BUILD_ROOT%{_sysconfdir}/gtk-2.0/gdk-pixbuf.loaders
+touch $RPM_BUILD_ROOT%{_sysconfdir}/gtk-2.0/gtk.immodules
+
+# remove unsupported locale scheme
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@IPA
+# shut up check-files (static modules and *.la for modules)
+rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-*/2.*/*/*.{a,la}
+
+# for various GTK+2 modules
+#install -d $(echo $RPM_BUILD_ROOT%{_libdir}/gtk-*)/modules
+
+rm -r $RPM_BUILD_ROOT%{_datadir}/locale/{az_IR,uz@Latn}
+
+%find_lang %{name} --all-name
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{arch}/include/gtk-2.0
-%{arch}/lib/*.lib
-%{arch}/lib/*.dll.a
-%{arch}/lib/gtk-2.0
-%{arch}/lib/pkgconfig/*.pc
+%{_includedir}/gtk-2.0
+%{_libdir}/*.dll.a
+%dir %{_libdir}/gtk-2.0
+%{_libdir}/gtk-2.0/*
+%{_pkgconfigdir}/*.pc
 # XXX: missing dir
-%{arch}/share/gtk-2.0
+%dir %{_datadir}/gtk-2.0
+%{_datadir}/gtk-2.0/*
