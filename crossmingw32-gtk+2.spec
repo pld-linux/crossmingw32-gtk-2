@@ -5,7 +5,7 @@ Name:		crossmingw32-%{_realname}
 Version:	2.10.9
 Release:	1
 License:	LGPL
-Group:		Libraries
+Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.10/gtk+-%{version}.tar.bz2
 # Source0-md5:	20d763198efb38263b22dee347f69da6
 Patch0:		%{name}-w32api.patch
