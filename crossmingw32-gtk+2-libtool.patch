@@ -1,0 +1,11 @@
+--- gtk+-2.10.14/gtk/Makefile.am.orig	2007-07-16 21:44:17.000000000 +0200
++++ gtk+-2.10.14/gtk/Makefile.am	2007-07-31 19:24:19.208403743 +0200
+@@ -807,7 +807,7 @@
+ 
+ libgtk_x11_2_0_la_LIBADD = $(libadd)
+ libgtk_linux_fb_2_0_la_LIBADD = $(libadd)
+-libgtk_win32_2_0_la_LIBADD = $(libadd) -lole32 -lgdi32 -lcomdlg32 -lwinspool -lcomctl32 -luuid
++libgtk_win32_2_0_la_LIBADD = $(libadd) -lole32 -lgdi32 -lcomdlg32 -lwinspool -lcomctl32
+ libgtk_win32_2_0_la_DEPENDENCIES = $(gtk_def) $(gtk_win32_res)
+ libgtk_quartz_2_0_la_LIBADD = $(libadd)
+ libgtk_directfb_2_0_la_LIBADD = $(libadd)
