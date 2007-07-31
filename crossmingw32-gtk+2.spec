@@ -1,12 +1,13 @@
 Summary:	The Gimp Toolkit - Ming32 cross version
 Summary(pl.UTF-8):	Gimp Toolkit - wersja skrośna dla Ming32
 Name:		crossmingw32-gtk+2
-Version:	2.10.13
+Version:	2.10.14
 Release:	1
-License:	LGPL
+License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.10/gtk+-%{version}.tar.bz2
-# Source0-md5:	d0af87715f3b0f05bf38a3312a528012
+# Source0-md5:	018d7dd0fa7de01cfdb77c7c55e7ba26
+Patch0:		%{name}-libtool.patch
 URL:		http://www.gtk.org/
 BuildRequires:	crossmingw32-atk >= 1.18.0
 BuildRequires:	crossmingw32-gcc
@@ -77,6 +78,7 @@ Biblioteki DLL GTK+ dla Windows.
 
 %prep
 %setup -q -n gtk+-%{version}
+%patch0 -p1
 
 %build
 export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
