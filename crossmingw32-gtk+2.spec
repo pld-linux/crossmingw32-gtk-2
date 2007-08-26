@@ -5,7 +5,7 @@ Version:	2.10.14
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
-Source0:	http://ftp.gnome.org/pub/gnome/sources/gtk+/2.10/gtk+-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.10/gtk+-%{version}.tar.bz2
 # Source0-md5:	018d7dd0fa7de01cfdb77c7c55e7ba26
 Patch0:		%{name}-libtool.patch
 URL:		http://www.gtk.org/
