@@ -16,6 +16,7 @@ BuildRequires:	crossmingw32-libjpeg
 BuildRequires:	crossmingw32-libpng
 BuildRequires:	crossmingw32-libtiff
 BuildRequires:	crossmingw32-pango >= 1.16.2
+BuildRequires:	pkgconfig >= 1:0.15
 Requires:	crossmingw32-atk >= 1.18.0
 Requires:	crossmingw32-glib2 >= 2.12.12
 Requires:	crossmingw32-pango >= 1.16.2
@@ -27,7 +28,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		target			i386-mingw32
 %define		target_platform 	i386-pc-mingw32
-%define		arch			%{_prefix}/%{target}
 
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
@@ -81,7 +81,7 @@ Biblioteki DLL GTK+ dla Windows.
 %patch0 -p1
 
 %build
-export PKG_CONFIG_PATH=%{_prefix}/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
