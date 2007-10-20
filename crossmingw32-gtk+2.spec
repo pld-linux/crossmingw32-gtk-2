@@ -93,7 +93,6 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 	--host=%{target} \
 	--disable-gtk-doc \
 	--disable-man \
-	--disable-modules \
 	--disable-xkb \
 	--with-gdk-target=win32 \
 	--without-x \
