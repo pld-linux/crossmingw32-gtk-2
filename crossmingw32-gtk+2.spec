@@ -1,7 +1,7 @@
 Summary:	The Gimp Toolkit - Ming32 cross version
 Summary(pl.UTF-8):	Gimp Toolkit - wersja skrośna dla Ming32
 Name:		crossmingw32-gtk+2
-Version:	2.12.3
+Version:	2.12.5
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
@@ -31,6 +31,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sysprefix		/usr
 %define		_prefix			%{_sysprefix}/%{target}
 %define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
+%define		_libdir			%{_prefix}/lib
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
@@ -115,22 +116,34 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 # remove unsupported locale scheme
 rm -rf $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,man,themes}
 # shut up check-files (static modules and *.la for modules)
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-*/2.*/*/*.{a,la}
+rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{_libdir}/libg[dt]k*.dll.a
-%{_libdir}/libg[dt]k*.la
-%{_libdir}/g[dt]k*.def
+%{_libdir}/libgdk-win32-2.0.dll.a
+%{_libdir}/libgdk_pixbuf-2.0.dll.a
+%{_libdir}/libgtk-win32-2.0.dll.a
+%{_libdir}/libgdk-win32-2.0.la
+%{_libdir}/libgdk_pixbuf-2.0.la
+%{_libdir}/libgtk-win32-2.0.la
+%{_libdir}/gdk-win32-2.0.def
+%{_libdir}/gdk_pixbuf-2.0.def
+%{_libdir}/gtk-win32-2.0.def
 %dir %{_libdir}/gtk-2.0
 %{_libdir}/gtk-2.0/include
 %{_includedir}/gtk-2.0
 %{_includedir}/gtk-unix-print-2.0
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/gdk-2.0.pc
+%{_pkgconfigdir}/gdk-pixbuf-2.0.pc
+%{_pkgconfigdir}/gdk-win32-2.0.pc
+%{_pkgconfigdir}/gtk+-2.0.pc
+%{_pkgconfigdir}/gtk+-win32-2.0.pc
 
 %files dll
 %defattr(644,root,root,755)
-%{_dlldir}/libg[dt]k*.dll
+%{_dlldir}/libgdk-win32-2.0-*.dll
+%{_dlldir}/libgdk_pixbuf-2.0-*.dll
+%{_dlldir}/libgtk-win32-2.0-*.dll
