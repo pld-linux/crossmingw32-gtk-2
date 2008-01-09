@@ -6,7 +6,7 @@ Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.12/gtk+-%{version}.tar.bz2
-# Source0-md5:	dc8455144f27945f2fcbe91e75acd118
+# Source0-md5:	588c7fb3d9ebadf4f5a1ab4c534e4db5
 URL:		http://www.gtk.org/
 BuildRequires:	crossmingw32-atk >= 1.20.0
 BuildRequires:	crossmingw32-gcc
