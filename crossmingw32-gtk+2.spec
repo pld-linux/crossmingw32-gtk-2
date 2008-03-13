@@ -1,24 +1,25 @@
 Summary:	The Gimp Toolkit - Ming32 cross version
 Summary(pl.UTF-8):	Gimp Toolkit - wersja skrośna dla Ming32
 Name:		crossmingw32-gtk+2
-Version:	2.12.8
+Version:	2.12.9
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.12/gtk+-%{version}.tar.bz2
-# Source0-md5:	1e0d7db0bfa210881743e1d42ee91a24
+# Source0-md5:	33499772fdc3bea569c6d5673e5831b4
+Patch0:		gtk+2-lt.patch
 URL:		http://www.gtk.org/
-BuildRequires:	crossmingw32-atk >= 1.20.0
+BuildRequires:	crossmingw32-atk >= 1.22.0
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-glib2 >= 2.14.2
+BuildRequires:	crossmingw32-glib2 >= 2.16.0
 BuildRequires:	crossmingw32-libjpeg
 BuildRequires:	crossmingw32-libpng
 BuildRequires:	crossmingw32-libtiff
-BuildRequires:	crossmingw32-pango >= 1.18.3
+BuildRequires:	crossmingw32-pango >= 1.20.0
 BuildRequires:	pkgconfig >= 1:0.15
-Requires:	crossmingw32-atk >= 1.20.0
-Requires:	crossmingw32-glib2 >= 2.14.2
-Requires:	crossmingw32-pango >= 1.18.3
+Requires:	crossmingw32-atk >= 1.22.0
+Requires:	crossmingw32-glib2 >= 2.16.0
+Requires:	crossmingw32-pango >= 1.20.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		abivers	2.10.0
@@ -54,7 +55,7 @@ GTK+, która to biblioteka stała się podstawą programu Gimp, zawiera
 funkcje do tworzenia graficznego interfejsu użytkownika pod X Window.
 Była tworzona z założeniem żeby była mała, efektywna i wygodna. GTK+
 jest napisane w C z podejściem zorientowanym bardzo obiektowo. GDK
-(część GTK+) jest warstwą pośrednią pomiędzy Xlib i resztą toolkitu
+(część GTK+) jest warstwą pośrednią pomiędzy Xlib a właściwym GTK
 zapewniającą pracę niezależnie od głębi koloru (ilości bitów na
 piksel). GTK (druga część GTK+) jest natomiast już zbiorem różnego
 rodzaju kontrolek służących do tworzenia interfejsu użytkownika.
@@ -78,6 +79,7 @@ Biblioteki DLL GTK+ dla Windows.
 
 %prep
 %setup -q -n gtk+-%{version}
+%patch0 -p1
 
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
