@@ -1,24 +1,24 @@
 Summary:	The Gimp Toolkit - Ming32 cross version
 Summary(pl.UTF-8):	Gimp Toolkit - wersja skrośna dla Ming32
 Name:		crossmingw32-gtk+2
-Version:	2.12.10
+Version:	2.12.11
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.12/gtk+-%{version}.tar.bz2
-# Source0-md5:	5fcbdd2254eedb6b9ae828afc01d9eaa
+# Source0-md5:	f7aab88e856a813386f797aade5867ad
 Patch0:		gtk+2-lt.patch
 URL:		http://www.gtk.org/
 BuildRequires:	crossmingw32-atk >= 1.22.0
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-glib2 >= 2.16.0
+BuildRequires:	crossmingw32-glib2 >= 2.16.1
 BuildRequires:	crossmingw32-libjpeg
 BuildRequires:	crossmingw32-libpng
 BuildRequires:	crossmingw32-libtiff
 BuildRequires:	crossmingw32-pango >= 1.20.0
 BuildRequires:	pkgconfig >= 1:0.15
 Requires:	crossmingw32-atk >= 1.22.0
-Requires:	crossmingw32-glib2 >= 2.16.0
+Requires:	crossmingw32-glib2 >= 2.16.1
 Requires:	crossmingw32-pango >= 1.20.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,9 +66,9 @@ Ten pakiet zawiera wersję skrośną dla Win32.
 Summary:	DLL GTK+ libraries for Windows
 Summary(pl.UTF-8):	Biblioteki DLL GTK+ dla Windows
 Group:		Applications/Emulators
-Requires:	crossmingw32-atk-dll >= 1.20.0
-Requires:	crossmingw32-glib2-dll >= 2.14.2
-Requires:	crossmingw32-pango-dll >= 1.18.3
+Requires:	crossmingw32-atk-dll >= 1.22.0
+Requires:	crossmingw32-glib2-dll >= 2.16.1
+Requires:	crossmingw32-pango-dll >= 1.20.0
 Requires:	wine
 
 %description dll
