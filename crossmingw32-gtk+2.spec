@@ -1,25 +1,24 @@
 Summary:	The GIMP Toolkit - Ming32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla Ming32
 Name:		crossmingw32-gtk+2
-Version:	2.18.9
+Version:	2.20.1
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.18/gtk+-%{version}.tar.bz2
-# Source0-md5:	f680d38c973635365acababacb1730ec
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.20/gtk+-%{version}.tar.bz2
+# Source0-md5:	53e6f3a93bd22934878fc4a4a34c68aa
 URL:		http://www.gtk.org/
-BuildRequires:	crossmingw32-atk >= 1.26.0
+BuildRequires:	crossmingw32-atk >= 1.30.0
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-glib2 >= 2.22.0
+BuildRequires:	crossmingw32-glib2 >= 2.24.0
 BuildRequires:	crossmingw32-jasper
 BuildRequires:	crossmingw32-libpng
-BuildRequires:	crossmingw32-pango >= 1.24.0
+BuildRequires:	crossmingw32-pango >= 1.26.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	pkgconfig >= 1:0.15
-BuildRequires:	sed >= 4.0
-Requires:	crossmingw32-atk >= 1.26.0
-Requires:	crossmingw32-glib2 >= 2.22.0
-Requires:	crossmingw32-pango >= 1.24.0
+Requires:	crossmingw32-atk >= 1.30.0
+Requires:	crossmingw32-glib2 >= 2.24.0
+Requires:	crossmingw32-pango >= 1.26.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		abivers	2.10.0
@@ -73,9 +72,9 @@ Ten pakiet zawiera wersję skrośną dla Win32.
 Summary:	DLL GTK+ libraries for Windows
 Summary(pl.UTF-8):	Biblioteki DLL GTK+ dla Windows
 Group:		Applications/Emulators
-Requires:	crossmingw32-atk-dll >= 1.26.0
-Requires:	crossmingw32-glib2-dll >= 2.22.0
-Requires:	crossmingw32-pango-dll >= 1.24.0
+Requires:	crossmingw32-atk-dll >= 1.30.0
+Requires:	crossmingw32-glib2-dll >= 2.24.0
+Requires:	crossmingw32-pango-dll >= 1.26.0
 Requires:	wine
 
 %description dll
@@ -86,8 +85,6 @@ Biblioteki DLL GTK+ dla Windows.
 
 %prep
 %setup -q -n gtk+-%{version}
-
-sed -i -e 's#libpng12#libpng#g' configure.in
 
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
@@ -144,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgdk-win32-2.0.la
 %{_libdir}/libgdk_pixbuf-2.0.la
 %{_libdir}/libgtk-win32-2.0.la
+%{_libdir}/gailutil.def
 %{_libdir}/gdk-win32-2.0.def
 %{_libdir}/gdk_pixbuf-2.0.def
 %{_libdir}/gtk-win32-2.0.def
@@ -165,3 +163,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_dlldir}/libgdk-win32-2.0-*.dll
 %{_dlldir}/libgdk_pixbuf-2.0-*.dll
 %{_dlldir}/libgtk-win32-2.0-*.dll
+%dir %{_libdir}/gtk-2.0
+%dir %{_libdir}/gtk-2.0/2.10.0
+%dir %{_libdir}/gtk-2.0/2.10.0/engines
+%{_libdir}/gtk-2.0/2.10.0/engines/libpixmap.dll
+%{_libdir}/gtk-2.0/2.10.0/engines/libwimp.dll
+%dir %{_libdir}/gtk-2.0/2.10.0/immodules
+%{_libdir}/gtk-2.0/2.10.0/immodules/im-*.dll
+%dir %{_libdir}/gtk-2.0/2.10.0/loaders
+%{_libdir}/gtk-2.0/2.10.0/loaders/libpixbufloader-*.dll
+%dir %{_libdir}/gtk-2.0/modules
+%{_libdir}/gtk-2.0/modules/libgail.dll
