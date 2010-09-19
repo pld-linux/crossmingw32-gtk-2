@@ -1,5 +1,5 @@
-Summary:	The GIMP Toolkit - Ming32 cross version
-Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla Ming32
+Summary:	The GIMP Toolkit - MinGW32 cross version
+Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
 Version:	2.20.1
 Release:	1
