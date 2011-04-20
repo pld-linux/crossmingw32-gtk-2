@@ -1,29 +1,27 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.3
+Version:	2.24.4
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.bz2
-# Source0-md5:	2094fadbd72ccb62b43a5e0c027d3142
+# Source0-md5:	e05a700ba79c8813d56e83e80636ee21
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	crossmingw32-atk >= 1.30.0
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-gdk-pixbuf2 >= 2.22.0
-BuildRequires:	crossmingw32-glib2 >= 2.26.0
-BuildRequires:	crossmingw32-jasper
-BuildRequires:	crossmingw32-libpng
-BuildRequires:	crossmingw32-pango >= 1.26.0
+BuildRequires:	crossmingw32-glib2 >= 2.28.0
+BuildRequires:	crossmingw32-pango >= 1.28.0
 BuildRequires:	gtk-doc >= 1.17
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.15
 Requires:	crossmingw32-atk >= 1.30.0
 Requires:	crossmingw32-gdk-pixbuf2 >= 2.22.0
-Requires:	crossmingw32-glib2 >= 2.26.0
-Requires:	crossmingw32-pango >= 1.26.0
+Requires:	crossmingw32-glib2 >= 2.28.0
+Requires:	crossmingw32-pango >= 1.28.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		abivers	2.10.0
@@ -79,8 +77,8 @@ Summary(pl.UTF-8):	Biblioteki DLL GTK+ dla Windows
 Group:		Applications/Emulators
 Requires:	crossmingw32-atk-dll >= 1.30.0
 Requires:	crossmingw32-gdk-dll >= 2.22.0
-Requires:	crossmingw32-glib2-dll >= 2.26.0
-Requires:	crossmingw32-pango-dll >= 1.26.0
+Requires:	crossmingw32-glib2-dll >= 2.28.0
+Requires:	crossmingw32-pango-dll >= 1.28.0
 Requires:	wine
 
 %description dll
@@ -108,7 +106,6 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 	--disable-man \
 	--disable-xkb \
 	--with-gdktarget=win32 \
-	--with-libjasper \
 	--without-x \
 	--without-xinput
 
@@ -117,7 +114,8 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+# .def installation is not parallel-compliant
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_dlldir}
@@ -129,10 +127,10 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %endif
 
 # remove unsupported locale scheme
-rm -rf $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,man,themes}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,man,themes}
 # shut up check-files (static modules and *.la for modules)
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.{a,la}
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.{a,la}
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
