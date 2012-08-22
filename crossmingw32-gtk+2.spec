@@ -1,12 +1,12 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.10
+Version:	2.24.11
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
-# Source0-md5:	7fdcb407dd174010a695b555bf9b65e2
+# Source0-md5:	8fb5c413be698169fedee774ec06bc8c
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
@@ -152,7 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/gtk-2.0/include
 %{_includedir}/gail-1.0
 %{_includedir}/gtk-2.0
-%{_includedir}/gtk-unix-print-2.0
 %{_pkgconfigdir}/gail.pc
 %{_pkgconfigdir}/gdk-2.0.pc
 %{_pkgconfigdir}/gdk-win32-2.0.pc
