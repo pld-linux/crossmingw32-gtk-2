@@ -1,12 +1,12 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.11
+Version:	2.24.12
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
-# Source0-md5:	8fb5c413be698169fedee774ec06bc8c
+# Source0-md5:	af16f167ac870bf4b0804e06f8b5cbbf
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
@@ -41,14 +41,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
-#define         filterout_ld            (-Wl,)?-as-needed.*
-
 %ifnarch %{ix86}
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
-# -z options are invalid for mingw linker
+# -z options are invalid for mingw linker, most of -f options are Linux-specific
 %define		filterout_ld	-Wl,-z,.*
+%define		filterout_c	-f[-a-z0-9=]*
 
 %description
 GTK+, which stands for the GIMP ToolKit, is a library for creating
