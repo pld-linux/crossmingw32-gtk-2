@@ -1,12 +1,12 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.20
+Version:	2.24.21
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
-# Source0-md5:	9d7833331d7accd80668e29d7f567ce5
+# Source0-md5:	d7ba702e76236237f2667f3def591fe7
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
@@ -99,7 +99,6 @@ Biblioteki DLL GTK+ dla Windows.
 
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
-%{__gtkdocize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -136,7 +135,7 @@ mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 %endif
 
 # remove unsupported locale scheme
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,man,themes}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,themes}
 # shut up check-files (static modules and *.la for modules)
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.{a,la}
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
