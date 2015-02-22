@@ -1,12 +1,12 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.25
+Version:	2.24.26
 Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
-# Source0-md5:	612350704dd3aacb95355a4981930c6f
+# Source0-md5:	4610cc60ff96073b83dc7de254bdaf38
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
@@ -101,6 +101,11 @@ Biblioteki DLL GTK+ dla Windows.
 # (requires native gtk-update-icon-cache >= 2.24.24 < 3.0)
 touch gtk/stamp-icons gtk/gtkbuiltincache.h
 
+# -Wl, makes recent libtools pass it as linker flag before any objects,
+# which is incompatible with as-needed; use plain -luuid with pass_all
+# hack below
+%{__sed} -i -e 's@-Wl,-luuid@-luuid@' configure.ac
+
 %build
 export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %{__libtoolize}
@@ -120,6 +125,11 @@ CPPFLAGS="%{rpmcppflags} -DWINVER=0x0500"
 	--with-gdktarget=win32 \
 	--without-x \
 	--without-xinput
+
+# by default mingw32 libtool doesn't allow to embed static libraries
+# in shared libraries (only import libraries are allowed); override this
+# to allow static libuuid
+%{__sed} -i -e 's/^\(deplibs_check_method\)=.*/\1="pass_all"/' libtool
 
 %{__make}
 
