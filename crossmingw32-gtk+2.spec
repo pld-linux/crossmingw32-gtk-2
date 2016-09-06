@@ -2,7 +2,7 @@ Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
 Version:	2.24.30
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
@@ -19,6 +19,7 @@ BuildRequires:	crossmingw32-pango >= 1.28.0
 BuildRequires:	gtk-doc >= 1.17
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.15
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	crossmingw32-atk >= 1.30.0
@@ -130,6 +131,8 @@ CPPFLAGS="%{rpmcppflags} -DWINVER=0x0500"
 # in shared libraries (only import libraries are allowed); override this
 # to allow static libuuid
 %{__sed} -i -e 's/^\(deplibs_check_method\)=.*/\1="pass_all"/' libtool
+# avoid -luuid in shared linking
+%{__sed} -i -e 's/ -luuid//;$aLibs.private: -luuid' gdk*.pc
 
 %{__make}
 
@@ -140,8 +143,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# avoid -luuid in shared linking
+%{__sed} -i -e 's/ -luuid//' $RPM_BUILD_ROOT%{_libdir}/lib*.la
+
 install -d $RPM_BUILD_ROOT%{_dlldir}
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
 %if 0%{!?debug:1}
 %{target}-strip --strip-unneeded -R.comment -R.note $RPM_BUILD_ROOT%{_dlldir}/*.dll
