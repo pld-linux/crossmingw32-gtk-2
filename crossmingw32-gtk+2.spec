@@ -1,12 +1,12 @@
 Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
-Version:	2.24.31
-Release:	2
+Version:	2.24.32
+Release:	1
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
-# Source0-md5:	526a1008586094a2cbb4592fd3f9ee10
+# Source0-md5:	d5742aa42275203a499b59b4c382a784
 URL:		http://www.gtk.org/
 BuildRequires:	autoconf >= 2.62
 BuildRequires:	automake >= 1:1.7
@@ -16,6 +16,8 @@ BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-gdk-pixbuf2 >= 2.22.0
 BuildRequires:	crossmingw32-glib2 >= 2.28.0
 BuildRequires:	crossmingw32-pango >= 1.28.0
+# glib-genmarshal, glib-mkenums
+BuildRequires:	glib2-devel >= 1:2.28.0
 BuildRequires:	gtk-doc >= 1.17
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.15
@@ -114,8 +116,6 @@ export PKG_CONFIG_LIBDIR=%{_prefix}/lib/pkgconfig
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-# starting with 2.24.14 gtk+ uses Windows 5.0 features
-CPPFLAGS="%{rpmcppflags} -DWINVER=0x0500"
 %configure \
 	--target=%{target} \
 	--host=%{target} \
@@ -134,7 +134,9 @@ CPPFLAGS="%{rpmcppflags} -DWINVER=0x0500"
 # avoid -luuid in shared linking
 %{__sed} -i -e 's/ -luuid//;$aLibs.private: -luuid' gdk*.pc
 
-%{__make}
+%{__make} \
+	GLIB_GENMARSHAL=/usr/bin/glib-genmarshal \
+	GLIB_MKENUMS=/usr/bin/glib-mkenums
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -154,8 +156,13 @@ install -d $RPM_BUILD_ROOT%{_dlldir}
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-# remove unsupported locale scheme
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-2.0,gtk-doc,locale,themes}
+# runtime
+%{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/gtk-2.0/im-multipress.conf
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{gtk-2.0,locale,themes}
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/gtk*.exe
+# development - use from native gtk+2 if necessary
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/gtk-builder-convert
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,gtk-doc}
 # shut up check-files (static modules and *.la for modules)
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.{a,la}
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
