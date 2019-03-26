@@ -2,7 +2,7 @@ Summary:	The GIMP Toolkit - MinGW32 cross version
 Summary(pl.UTF-8):	GIMP Toolkit - wersja skrośna dla MinGW32
 Name:		crossmingw32-gtk+2
 Version:	2.24.32
-Release:	2
+Release:	3
 License:	LGPL v2+
 Group:		Development/Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/gtk+/2.24/gtk+-%{version}.tar.xz
@@ -145,9 +145,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# avoid -luuid in shared linking
-%{__sed} -i -e 's/ -luuid//' $RPM_BUILD_ROOT%{_libdir}/lib*.la
-
 install -d $RPM_BUILD_ROOT%{_dlldir}
 %{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 
@@ -166,6 +163,8 @@ install -d $RPM_BUILD_ROOT%{_dlldir}
 # shut up check-files (static modules and *.la for modules)
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/modules/*.{a,la}
 %{__rm} -r $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/2.*/*/*.{a,la}
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -175,9 +174,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libgailutil.dll.a
 %{_libdir}/libgdk-win32-2.0.dll.a
 %{_libdir}/libgtk-win32-2.0.dll.a
-%{_libdir}/libgailutil.la
-%{_libdir}/libgdk-win32-2.0.la
-%{_libdir}/libgtk-win32-2.0.la
 %{_libdir}/gailutil.def
 %{_libdir}/gdk-win32-2.0.def
 %{_libdir}/gtk-win32-2.0.def
